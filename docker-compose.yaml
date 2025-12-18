@@ -1,0 +1,31 @@
+services:
+  bi-db:
+    image: postgres:17.6
+    container_name: bi-svc-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGDATA: /pgdata
+    volumes:
+      - bi-data:/pgdata
+
+  bi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bi-svc
+    depends_on:
+      - bi-db
+    environment:
+      KV_VIPER_FILE: /config.yaml
+    volumes:
+      - ./config.yaml:/config.yaml
+    ports:
+      - "8800:8800"
+    entrypoint: sh -c "btc-indexer-svc migrate up && btc-indexer-svc run service"
+
+volumes:
+  bi-data:
