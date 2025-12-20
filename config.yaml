@@ -6,7 +6,7 @@ db:
   url: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@bi-db:5432/${POSTGRES_DB}?sslmode=disable
 
 listener:
-  addr: :8000
+  addr: :8800
 
 cop:
   disabled: true
