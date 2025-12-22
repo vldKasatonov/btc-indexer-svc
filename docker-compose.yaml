@@ -11,6 +11,12 @@ services:
       PGDATA: /pgdata
     volumes:
       - bi-data:/pgdata
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER}" ]
+      interval: 5s
+      retries: 5
+      start_period: 5s
+      timeout: 5s
 
   bi:
     build:
@@ -18,7 +24,8 @@ services:
       dockerfile: Dockerfile
     container_name: bi-svc
     depends_on:
-      - bi-db
+      bi-db:
+        condition: service_healthy
     environment:
       KV_VIPER_FILE: /config.yaml
     volumes:
