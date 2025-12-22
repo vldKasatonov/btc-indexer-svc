@@ -5,6 +5,7 @@ GENERATOR_IMAGE=tokend/openapi-generator:v0.1.0
 
 GENERATED="${GOPATH}/src/github.com/vldKasatonov/btc-indexer-svc/resources"
 OPENAPI_DIR="${GOPATH}/src/github.com/vldKasatonov/btc-indexer-svc/docs/web_deploy"
+#change GENERATED and OPENAPI_DIR to right absolute path
 PACKAGE_NAME=resources
 
 function printHelp {
@@ -49,9 +50,9 @@ function parseArgs {
 }
 
 function generate {
-    (cd docs && npm run build)
+#    (cd docs && npm run build) #do it manually
     docker run -v "${OPENAPI_DIR}":/openapi -v "${GENERATED}":/generated "${GENERATOR_IMAGE}" generate -pkg "${PACKAGE_NAME}" --raw-formats-as-types
-    goimports -w ${GENERATED}
+#    goimports -w ${GENERATED} #do it manually
 }
 
 parseArgs "$@"
