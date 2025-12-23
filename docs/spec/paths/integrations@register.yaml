@@ -29,3 +29,9 @@ post:
         application/vnd.api+json:
           schema:
             $ref: '#/components/schemas/Errors'
+    500:
+      description: Internal Server Error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
