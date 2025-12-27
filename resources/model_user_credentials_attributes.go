@@ -4,7 +4,7 @@
 
 package resources
 
-type RegisterUserAttributes struct {
+type UserCredentialsAttributes struct {
 	Password string `json:"password"`
 	Username string `json:"username"`
 }
