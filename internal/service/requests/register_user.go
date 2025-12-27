@@ -10,7 +10,7 @@ import (
 )
 
 type RegisterUserRequest struct {
-	Data resources.RegisterUser `json:"data"`
+	Data resources.UserCredentials `json:"data"`
 }
 
 func NewRegisterUserRequest(r *http.Request) (RegisterUserRequest, error) {
