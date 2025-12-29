@@ -1,8 +1,8 @@
 post:
   tags:
     - User
-  summary: Register user
-  operationId: registerUser
+  summary: Login user
+  operationId: loginUser
   requestBody:
     content:
       application/json:
@@ -15,16 +15,24 @@ post:
               type: object
               $ref: '#/components/schemas/UserCredentials'
   responses:
-    '204':
+    '200':
       description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: '#/components/schemas/Jwt'
     '400':
       description: Bad Request
       content:
         application/vnd.api+json:
           schema:
             $ref: '#/components/schemas/Errors'
-    '409':
-      description: Conflict
+    '401':
+      description: Unauthorized
       content:
         application/vnd.api+json:
           schema:

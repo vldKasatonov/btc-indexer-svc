@@ -16,6 +16,7 @@ func (s *service) router() chi.Router {
 		ape.CtxMiddleware(
 			handlers.CtxLog(s.log),
 			handlers.CtxUsersQ(pg.NewUsersQ(s.config.DB())),
+			handlers.CtxSigner(s.config.SignerConfig()),
 		),
 	)
 	r.Route("/integrations/btc-indexer-svc", func(r chi.Router) {

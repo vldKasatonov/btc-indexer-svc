@@ -8,5 +8,6 @@ type ResourceType string
 
 // List of ResourceType
 const (
+	JWT  ResourceType = "jwt"
 	USER ResourceType = "user"
 )

@@ -4,7 +4,11 @@ import "time"
 
 type UsersQ interface {
 	New() UsersQ
+
 	Insert(data User) (User, error)
+	Get() (*User, error)
+
+	FilterByUsername(username string) UsersQ
 }
 
 type User struct {

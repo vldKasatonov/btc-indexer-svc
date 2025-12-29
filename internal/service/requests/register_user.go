@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	validation "github.com/go-ozzo/ozzo-validation/v4"
+	"github.com/vldKasatonov/btc-indexer-svc/internal/service/helpers"
 	"github.com/vldKasatonov/btc-indexer-svc/resources"
 	"gitlab.com/distributed_lab/logan/v3/errors"
 )
@@ -24,16 +24,5 @@ func NewRegisterUserRequest(r *http.Request) (RegisterUserRequest, error) {
 }
 
 func (r *RegisterUserRequest) validate() error {
-	return validation.Errors{
-		"/data/attributes/username": validation.Validate(
-			&r.Data.Attributes.Username,
-			validation.Required,
-			validation.Length(4, 128),
-		),
-		"/data/attributes/password": validation.Validate(
-			&r.Data.Attributes.Password,
-			validation.Required,
-			validation.Length(8, 128),
-		),
-	}.Filter()
+	return helpers.ValidateCredentials(r.Data).Filter()
 }
