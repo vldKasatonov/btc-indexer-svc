@@ -14,3 +14,6 @@ cop:
   upstream: "http://..."
   service_name: btc-indexer-svc
   service_port: 80
+
+signer:
+  jwt_secret: "a-string-secret-at-least-256-bits-long"
