@@ -40,7 +40,10 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 
 	ape.Render(w, resources.JwtResponse{
 		Data: resources.Jwt{
-			Key: resources.NewKeyInt64(0, resources.JWT),
+			Key: resources.Key{
+				ID:   jwt,
+				Type: resources.JWT,
+			},
 			Attributes: resources.JwtAttributes{
 				Token: jwt,
 			},
