@@ -20,4 +20,4 @@ jobs:
         with:
           reporter: github-pr-review
           cache: false
-          golangci_lint_version: v1.60.1
+          golangci_lint_version: v2.4.0
