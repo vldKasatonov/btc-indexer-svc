@@ -22,6 +22,15 @@ func (s *service) router() chi.Router {
 	r.Route("/integrations/btc-indexer-svc", func(r chi.Router) {
 		r.Post("/register", handlers.RegisterUser)
 		r.Post("/login", handlers.LoginUser)
+			r.Route("/addresses", func(r chi.Router) {
+				r.Post("/", handlers.TrackAddress)
+				r.Get("/", handlers.GetAddressList)
+				r.Route("/{address}", func(r chi.Router) {
+					r.Get("/balance", handlers.GetAddressBalance)
+					r.Get("/utxos", handlers.GetAddressUTXOs)
+					r.Get("/txs", handlers.GetAddressTXs)
+				})
+			})
 	})
 
 	return r
