@@ -15,6 +15,7 @@ const (
 	logCtxKey ctxKey = iota
 	signerConfigKey
 	usersQCtxKey
+	userIdKey
 )
 
 func CtxLog(entry *logan.Entry) func(context.Context) context.Context {
@@ -45,4 +46,14 @@ func CtxUsersQ(entry data.UsersQ) func(context.Context) context.Context {
 
 func UsersQ(r *http.Request) data.UsersQ {
 	return r.Context().Value(usersQCtxKey).(data.UsersQ).New()
+}
+
+func CtxUserId(userId int64) func(context.Context) context.Context {
+	return func(ctx context.Context) context.Context {
+		return context.WithValue(ctx, userIdKey, userId)
+	}
+}
+
+func UserId(r *http.Request) int64 {
+	return r.Context().Value(userIdKey).(int64)
 }

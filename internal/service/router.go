@@ -4,6 +4,7 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/vldKasatonov/btc-indexer-svc/internal/data/pg"
 	"github.com/vldKasatonov/btc-indexer-svc/internal/service/handlers"
+	"github.com/vldKasatonov/btc-indexer-svc/internal/service/handlers/middlewares"
 	"gitlab.com/distributed_lab/ape"
 )
 
@@ -22,6 +23,8 @@ func (s *service) router() chi.Router {
 	r.Route("/integrations/btc-indexer-svc", func(r chi.Router) {
 		r.Post("/register", handlers.RegisterUser)
 		r.Post("/login", handlers.LoginUser)
+		r.Group(func(r chi.Router) {
+			r.Use(middlewares.Authenticator)
 			r.Route("/addresses", func(r chi.Router) {
 				r.Post("/", handlers.TrackAddress)
 				r.Get("/", handlers.GetAddressList)
@@ -31,6 +34,7 @@ func (s *service) router() chi.Router {
 					r.Get("/txs", handlers.GetAddressTXs)
 				})
 			})
+		})
 	})
 
 	return r
