@@ -2,9 +2,11 @@ package helpers
 
 import (
 	"fmt"
+	"strconv"
 	"time"
 
 	jwt "github.com/golang-jwt/jwt/v5"
+	"gitlab.com/distributed_lab/logan/v3/errors"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -29,4 +31,36 @@ func GenerateJwt(userId int64, secret string) (string, error) {
 		return "", err
 	}
 	return tokenString, nil
+}
+
+func ValidateJwt(tokenString string, secret string) (int64, error) {
+	token, err := jwt.Parse(
+		tokenString,
+		func(token *jwt.Token) (any, error) {
+			return []byte(secret), nil
+		},
+		jwt.WithValidMethods([]string{jwt.SigningMethodHS256.Alg()}),
+	)
+	if err != nil {
+		return 0, errors.Wrap(err, "invalid token")
+	}
+	if !token.Valid {
+		return 0, errors.New("invalid token")
+	}
+
+	claims, ok := token.Claims.(jwt.MapClaims)
+	if !ok {
+		return 0, errors.New("invalid claims of token")
+	}
+
+	userIdString, ok := claims["sub"].(string)
+	if !ok {
+		return 0, errors.New("invalid sub claim of token")
+	}
+	userId, err := strconv.ParseInt(userIdString, 10, 64)
+	if err != nil {
+		return 0, errors.Wrap(err, "invalid sub claim of token")
+	}
+
+	return userId, nil
 }
