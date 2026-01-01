@@ -11,7 +11,7 @@ require (
 	github.com/golang-jwt/jwt/v5 v5.3.0
 	github.com/rubenv/sql-migrate v1.8.1
 	gitlab.com/distributed_lab/ape v1.7.2
-	gitlab.com/distributed_lab/figure v2.1.2+incompatible
+	gitlab.com/distributed_lab/figure/v3 v3.1.4
 	gitlab.com/distributed_lab/kit v1.11.4
 	gitlab.com/distributed_lab/logan v3.8.1+incompatible
 	golang.org/x/crypto v0.45.0
@@ -56,7 +56,7 @@ require (
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/tklauser/go-sysconf v0.3.11 // indirect
 	github.com/tklauser/numcpus v0.6.0 // indirect
-	gitlab.com/distributed_lab/figure/v3 v3.1.4 // indirect
+	gitlab.com/distributed_lab/figure v2.1.2+incompatible // indirect
 	gitlab.com/distributed_lab/lorem v0.2.0 // indirect
 	gitlab.com/distributed_lab/running v1.6.0 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
